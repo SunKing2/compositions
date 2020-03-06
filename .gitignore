@@ -1,3 +1,6 @@
+comp_page1.*
+*.midi
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

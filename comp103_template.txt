@@ -1,0 +1,28 @@
+\score {
+  \new PianoStaff \with {
+    instrumentName = \markup {
+      \center-column { "$mydate"
+        \line { "#$myopus" }
+      }
+    }
+  }
+  <<
+    \new Staff = "upper" \relative c' {
+      \clef treble
+      \key $mykey \major
+      \numericTimeSignature
+      \time $mytime
+$myupper
+    }
+    \new Staff = "lower" \relative c {
+      \clef bass
+      \key $mykey \major
+      \numericTimeSignature
+      \time $mytime
+$mylower
+    }
+  >>
+  \layout { }
+  \midi { }
+}
+

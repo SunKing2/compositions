@@ -1,0 +1,20 @@
+#!/bin/bash
+# generates lilypond source code for a lilypond book
+# runs the source code, showing a pdf
+
+# make some templates out of the master template, which is comp103_template.txt
+perl -wlne '($. > 16 and $. < 24) or print' comp103_template.txt > comp101_template.txt
+
+# create comp_page1.ly by running those templates against a csv file (see source code of mkly.py)
+python mkly.py > comp_page1.ly
+
+#ensure the output is the same as the hand coded lilypond file, and if not, show the diffs in meld:
+diff comp101.ly comp_page1.ly || meld comp101.ly comp_page1.ly
+
+#don't need these templates anymore, and they were generated, so delete them:
+rm comp101_template.txt
+
+# run lilypond on comp_page1.ly producing a pdf, and show the pdf:
+lilypond comp_page1.ly &> /tmp/tmp2 &&   egrep 'MIDI|success' /tmp/tmp2
+evince comp_page1.pdf 2>/dev/null
+
